@@ -34,7 +34,7 @@ You need to see contract address. If you see address, server is running successf
 
 ### Vote
 
-```
+```json
 Endpoint: http://localhost:8082/vote
 JSON Body: 
 {
@@ -44,3 +44,15 @@ JSON Body:
 ```
 
 You need to give voter account address into `from` in JSON.
+
+### Get Election Results
+
+```json
+Endpoint: http://localhost:8082/get/election-results
+JSON Body:
+{
+  "from": "0x2537b143CFC60A8D3ccfC9e6D924C08Baa357899"
+}
+```
+
+It returns the JSON object which includes the candidates and vote counts for each of them.
