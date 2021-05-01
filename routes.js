@@ -21,7 +21,7 @@ function routes(app, contract, listOfCandidates){
         console.log("Election results endpoint")
         let from = req.body.from
         contract.methods.getElectionResult().call({from: from, gas: 120000}).then((result) => {
-            return res.status(200).send({proposals: listOfCandidates, voteCounts: result[1]})
+            return res.status(200).send({candidates: listOfCandidates, voteCounts: result[1]})
         }).catch((err) => {
             let reason = getRevertReason(err.data)
             return res.status(404).send({reason: reason})
