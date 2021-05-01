@@ -151,8 +151,18 @@ contract Ballot {
         
     }
     
-    function getElectionResult() external view returns (Proposal[] memory proposalss ) {
+    function getElectionResult() external view returns (bytes32[] memory names, uint[] memory voteCounts) {
         require( block.timestamp > statViewFinishTime, "Election has not been finished! You cannot view the results.");
-        return proposals;
+
+        bytes32[] memory namesArr = new bytes32[](proposals.length);
+        uint[] memory voteCountsArr = new uint[](proposals.length);
+
+        for (uint i = 0; i < proposals.length; i++) {
+            Proposal storage proposal = proposals[i];
+            namesArr[i] = proposal.name;
+            voteCountsArr[i] = proposal.voteCount;
+        }
+
+        return (namesArr, voteCountsArr);
     }
 }
