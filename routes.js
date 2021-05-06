@@ -27,6 +27,16 @@ function routes(app, contract, listOfCandidates){
             return res.status(404).send({reason: reason})
         })
     })
+    app.post('/get/check-my-vote', (req,res)=>{
+        console.log("My Vote")
+        let from = req.body.from
+        contract.methods.checkMyVote().call({from: from, gas: 120000}).then((result) => {
+            return res.status(200).send({result[0]})
+        }).catch((err) => {
+            let reason = getRevertReason(err.data)
+            return res.status(404).send({reason: reason})
+        })
+    })
     app.post('/login', (req,res)=>{
         let email = req.body.email
         if(email){
