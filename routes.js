@@ -5,17 +5,22 @@
  * Get election result --> Burak
 */
 
-function routes(app, contract, listOfCandidates){
-    app.post('/vote', (req, res) => {
-        let candidate = req.body.candidate
-        let from = req.body.from
-        contract.methods.vote(candidate).send({from: from, gas: 120000}).then((result) => {
-            console.log("The result: ", result)
-            return res.status(200).send({msg: "Voted successfully."})
-        }).catch((err) => {
-            var reason = getRevertReason(err.data)
-            return res.status(404).send({reason: reason})
-        })
+function routes(app, candidates, contract, listOfCandidates){
+    app.post('/vote', function (req, res) {
+       try {
+           let candidate = req.body.candidate;
+           let from = req.body.from;
+           contract.methods.vote(candidate).send({from: from, gas: 120000}).then((result) => {
+               // TODO res.json() can be used instead of res.send()
+               return res.status(200).send({msg: "Voted successfully."})
+           }).catch((err) => {
+               var reason = getRevertReason(err.data)
+               return res.status(404).send({reason: reason})
+           })
+       } catch (e) {
+           return res.status(404).send({reason: "Undefined"});
+        }
+
     })
     app.post('/get/election-results', (req,res)=>{
         console.log("Election results endpoint")
@@ -31,11 +36,14 @@ function routes(app, contract, listOfCandidates){
         console.log("My Vote")
         let from = req.body.from
         contract.methods.checkMyVote().call({from: from, gas: 120000}).then((result) => {
-            return res.status(200).send({result[0]})
+            return res.status(200).send({votedCandidate: result[0]})
         }).catch((err) => {
             let reason = getRevertReason(err.data)
             return res.status(404).send({reason: reason})
         })
+    })
+    app.get('/candidates', (req, res) => {
+        return res.status(200).json({candidates: candidates})
     })
     app.post('/login', (req,res)=>{
         let email = req.body.email

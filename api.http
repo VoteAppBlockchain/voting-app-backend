@@ -1,0 +1,9 @@
+POST http://localhost:8082/vote
+Content-Type: application/json
+
+{
+"candidate": 0,
+"from": "0xCdab2d13D9496e79E35208A638B6dDcA42b70b86"
+}
+
+###
