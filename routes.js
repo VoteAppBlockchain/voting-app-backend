@@ -36,7 +36,16 @@ function routes(app, candidates, contract, listOfCandidates){
         console.log("My Vote")
         let from = req.body.from
         contract.methods.checkMyVote().call({from: from, gas: 120000}).then((result) => {
-            return res.status(200).send({votedCandidate: result[0]})
+            let candidateHexValue = result;
+            candidateHexValue = candidateHexValue.toString()
+            let candidateName = "";
+            const keys = Object.keys(candidates)
+            for (let i = 0; i < keys.length; i++) {
+                if (candidateHexValue.substr(0, keys[i].length) === keys[i]) {
+                    candidateName += candidates[keys[i]].toString();
+                }
+            }
+            return res.status(200).send({votedCandidate: candidateName})
         }).catch((err) => {
             let reason = getRevertReason(err.data)
             return res.status(404).send({reason: reason})

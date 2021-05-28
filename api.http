@@ -2,8 +2,14 @@ POST http://localhost:8082/vote
 Content-Type: application/json
 
 {
-"candidate": 0,
-"from": "0xCdab2d13D9496e79E35208A638B6dDcA42b70b86"
+"candidate": 1,
+"from": "0x76936384eabE3d811dEFf2af5f63c0A5F116ceDC"
 }
 
 ###
+POST http://localhost:8082/get/check-my-vote
+Content-Type: application/json
+
+{
+"from": "0x76936384eabE3d811dEFf2af5f63c0A5F116ceDC"
+}
