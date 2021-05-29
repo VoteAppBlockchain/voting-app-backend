@@ -18,7 +18,7 @@ const votersJson = require("./voters.json")
 app.use(bodyParser.json());
 
 client.connect()
-client.query('SELECT NOW()') 
+client.query('SELECT NOW()')
 
 client
     .query("SELECT * FROM voters")
@@ -73,7 +73,7 @@ function readAndSaveJson(voterHexValues) {
         console.log("Contract address: " + newContractInstance.options.address)
     })
 
-    routes(app, candidates, votingContract, listOfCandidates)
+    routes(app, candidates, votingContract, listOfCandidates, client)
     app.listen(process.env.PORT || 8082, () => {
         console.log('listening on port ' + (process.env.PORT || 8082));
     })

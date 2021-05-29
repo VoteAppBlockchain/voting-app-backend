@@ -1,11 +1,11 @@
 /**
- * Voter login --> Gökhan 
+ * Voter login --> Gökhan
  * --Government start election--
  * Check my vote --> Dilara
  * Get election result --> Burak
 */
 
-function routes(app, candidates, contract, listOfCandidates){
+function routes(app, candidates, contract, listOfCandidates, client){
     app.post('/vote', function (req, res) {
        try {
            let candidate = req.body.candidate;
@@ -55,29 +55,28 @@ function routes(app, candidates, contract, listOfCandidates){
         return res.status(200).json({candidates: candidates})
     })
     app.post('/login', (req,res)=>{
-        let email = req.body.email
-        if(email){
-            db.findOne({email}, (err, doc)=>{
-                if(doc){
-                    res.json({"status":"success","id":doc.id})
-                }else{
-                    res.status(400).json({"status":"Failed", "reason":"Not recognised"})
-                }
+        let idNumber = req.body.id_number
+        let password = req.body.password
+
+        let loginQuery = "SELECT name, surname, hexvalue FROM voters WHERE password = " + "'" + password
+                            + "'" + "AND id_number = " + "'" + idNumber + "';"
+        client
+            .query(loginQuery, function (err, result) {
+                let json = JSON.stringify(result.rows);
+                res.writeHead(200, {'content-type':'application/json', 'content-length':Buffer.byteLength(json)});
+                res.end(json);
             })
-        }else{
-            res.status(400).json({"status":"Failed", "reason":"wrong input"})
-        }
     })
 
 }
 
 /**
- * 
+ *
  * @param {JSON} err - Error message which has reason
  * @returns String - Reason message
  */
 function getRevertReason(err) {
-    
+
     for (var x in err) {
         if (x.startsWith("0x")) {
             return err[x]["reason"]

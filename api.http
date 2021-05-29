@@ -13,3 +13,12 @@ Content-Type: application/json
 {
 "from": "0x76936384eabE3d811dEFf2af5f63c0A5F116ceDC"
 }
+
+###
+POST http://localhost:8082/login
+Content-Type: application/json
+
+{
+  "id_number": "12345678902",
+  "password": "12345678"
+}
