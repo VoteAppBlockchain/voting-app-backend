@@ -35,7 +35,7 @@ You need to see contract address. If you see address, server is running successf
 ### Vote
 
 ```json
-Endpoint: http://localhost:8082/vote
+Endpoint: POST http://localhost:8082/vote
 JSON Body: 
 {
     "candidate": 1,
@@ -48,7 +48,7 @@ You need to give voter account address into `from` in JSON.
 ### Get Election Results
 
 ```json
-Endpoint: http://localhost:8082/get/election-results
+Endpoint: POST http://localhost:8082/get/election-results
 JSON Body:
 {
   "from": "0x2537b143CFC60A8D3ccfC9e6D924C08Baa357899"
@@ -56,3 +56,35 @@ JSON Body:
 ```
 
 It returns the JSON object which includes the candidates and vote counts for each of them.
+
+### Check My Vote
+
+```json
+Endpoint: POST http://localhost:8082/get/check-my-vote
+JSON Body:
+{
+"from": "0x76936384eabE3d811dEFf2af5f63c0A5F116ceDC"
+}
+```
+
+It checks the vote which is casted by the voter and returns the result to client. 
+
+### Get Candidate List
+
+```json
+Endpoint: GET http://localhost:8082/candidates
+```
+
+It returns the list of candidate list with hex values
+
+### Login
+
+```json
+Endpoint: POST http://localhost:8082/login
+{
+"id_number": "12345678902",
+"password": "12345678"
+}
+```
+
+Checks the identity number and password and verifies the voter.
