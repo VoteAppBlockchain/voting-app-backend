@@ -20,12 +20,6 @@ app.use(bodyParser.json());
 client.connect()
 client.query('SELECT NOW()')
 
-client
-    .query("SELECT * FROM voters")
-    .then(res => console.log(res.rows[0]))
-    .catch(e => console.error(e.stack))
-
-
 let web3;
 if (typeof web3 !== 'undefined') {
     web3 = new Web3(web3.currentProvider);
@@ -41,10 +35,7 @@ const votingContract = new web3.eth.Contract(abi);
 function readAndSaveJson(voterHexValues) {
 
     for (let i = 0; i < votersJson.length; i++) {
-        console.log(votersJson[i].name)
-        console.log(voterHexValues[i+1])
         let insertQuery = "INSERT INTO voters (name, surname, id_number, password, hexvalue) VALUES(" + "'" + votersJson[i].name + "'" + "," + "'" +  votersJson[i].surname + "'" + "," + "'" + votersJson[i].id_number + "'" + "," + "'" + votersJson[i].password +"'" + "," + "'" + voterHexValues[i+1] + "'" + ")"
-        console.log(insertQuery)
         client
             .query(insertQuery)
             .then(() => console.log("Voter saved"))
@@ -63,7 +54,7 @@ function readAndSaveJson(voterHexValues) {
         data: bytecode,
         arguments: [listOfCandidates.map(name => web3.utils.asciiToHex(name)),
             [accounts[1], accounts[2], accounts[3], accounts[4], accounts[5], accounts[6], accounts[7]],
-            "1629222140", "1629222140"]
+            "1622312756", "1622312756"]
     }).send({
         from: accounts[0],
         gas: 5500000,

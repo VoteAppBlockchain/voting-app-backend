@@ -1,10 +1,3 @@
-/**
- * Voter login --> Gökhan
- * --Government start election--
- * Check my vote --> Dilara
- * Get election result --> Burak
-*/
-
 function routes(app, candidates, contract, listOfCandidates, client){
     app.post('/vote', function (req, res) {
        try {
@@ -12,28 +5,26 @@ function routes(app, candidates, contract, listOfCandidates, client){
            let from = req.body.from;
            contract.methods.vote(candidate).send({from: from, gas: 120000}).then((result) => {
                // TODO res.json() can be used instead of res.send()
-               return res.status(200).send({msg: "Voted successfully."})
+               return res.status(200).send({status: "OK", msg: "Voted successfully."})
            }).catch((err) => {
-               var reason = getRevertReason(err.data)
-               return res.status(404).send({reason: reason})
+               let reason = getRevertReason(err.data)
+               return res.status(404).send({status: "Error", reason: reason})
            })
        } catch (e) {
-           return res.status(404).send({reason: "Undefined"});
+           return res.status(404).send({status: "Error", reason: "Undefined"});
         }
 
     })
     app.post('/get/election-results', (req,res)=>{
-        console.log("Election results endpoint")
         let from = req.body.from
         contract.methods.getElectionResult().call({from: from, gas: 120000}).then((result) => {
-            return res.status(200).send({candidates: listOfCandidates, voteCounts: result[1]})
+            return res.status(200).send({"status": "OK", candidates: listOfCandidates, voteCounts: result[1]})
         }).catch((err) => {
             let reason = getRevertReason(err.data)
-            return res.status(404).send({reason: reason})
+            return res.status(404).send({"status": "Error", reason: reason})
         })
     })
     app.post('/get/check-my-vote', (req,res)=>{
-        console.log("My Vote")
         let from = req.body.from
         contract.methods.checkMyVote().call({from: from, gas: 120000}).then((result) => {
             let candidateHexValue = result;
@@ -45,10 +36,10 @@ function routes(app, candidates, contract, listOfCandidates, client){
                     candidateName += candidates[keys[i]].toString();
                 }
             }
-            return res.status(200).send({votedCandidate: candidateName})
+            return res.status(200).send({"status": "OK", votedCandidate: candidateName})
         }).catch((err) => {
             let reason = getRevertReason(err.data)
-            return res.status(404).send({reason: reason})
+            return res.status(404).send({"status": "Error", reason: reason})
         })
     })
     app.get('/candidates', (req, res) => {

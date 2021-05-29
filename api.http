@@ -2,8 +2,16 @@ POST http://localhost:8082/vote
 Content-Type: application/json
 
 {
-"candidate": 1,
-"from": "0x76936384eabE3d811dEFf2af5f63c0A5F116ceDC"
+  "candidate": 1,
+  "from": "0x76936384eabE3d811dEFf2af5f63c0A5F116ceDC"
+}
+
+###
+POST http://localhost:8082/get/election-results
+Content-Type: application/json
+
+{
+  "from": "0x9957A6e804720E9cE985629090E2D3A203664Fd9"
 }
 
 ###
@@ -11,8 +19,12 @@ POST http://localhost:8082/get/check-my-vote
 Content-Type: application/json
 
 {
-"from": "0x76936384eabE3d811dEFf2af5f63c0A5F116ceDC"
+  "from": "0x76936384eabE3d811dEFf2af5f63c0A5F116ceDC"
 }
+
+###
+GET http://localhost:8082/candidates
+Content-Type: application/json
 
 ###
 POST http://localhost:8082/login
