@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Mustafa",
+    "surname": "Yilmaz",
+    "id_number": "12345678901",
+    "password": "12345678"
+  },
+  {
+    "name": "Ahmet",
+    "surname": "Yildiz",
+    "id_number": "12345678902",
+    "password": "12345678"
+  },
+  {
+    "name": "Mehmet",
+    "surname": "Kaya",
+    "id_number": "12345678903",
+    "password": "12345678"
+  },
+  {
+    "name": "Ayşe",
+    "surname": "Coskun",
+    "id_number": "12345678904",
+    "password": "12345678"
+  },
+  {
+    "name": "Fatma",
+    "surname": "Kara",
+    "id_number": "12345678905",
+    "password": "12345678"
+  },
+  {
+    "name": "Zeynep",
+    "surname": "Eren",
+    "id_number": "12345678906",
+    "password": "12345678"
+  }
+]
