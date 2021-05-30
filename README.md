@@ -1,6 +1,6 @@
 # voting-app-backend
 
-Voting application's backend source code.
+This repo contains the voting application's backend source code. The backend was written in Node.Js. To see mobile code, you can look [here](https://github.com/VoteAppBlockchain/voting_app_mobile).
 
 ## Run
 
@@ -10,6 +10,8 @@ Firstly, you need to install some packages. To install all packages, you can run
 $ npm install
 ```
 
+To store the voter's information in database, you need to create a new database in PostgreSQL which named as **voting_app_db**. When you run the server, the table and columns are created.
+
 Also, you should install `ganache-cli` to your environment. You can type the following command.
 
 ```bash
@@ -17,12 +19,13 @@ $ npm install -g ganache-cli
 ```
 
 After installing packages, you can start the server with the following command.
+Firstly, you need to run `ganache-cli` to create avaliable accounts. Then, you can start server.
 
 ```bash
 $ ganache-cli
 ```
 
-Firstly, you need to run `ganache-cli` to create avaliable accounts. Then, you can start server.
+Important point is that you need to run those commands in different terminals.
 
 ```bash
 $ npm run start
@@ -88,3 +91,18 @@ Endpoint: POST http://localhost:8082/login
 ```
 
 Checks the identity number and password and verifies the voter.
+
+## Tech Stack
+
+* Mobile - [Flutter](https://github.com/flutter/flutter)
+* Backend - [Node.Js](https://github.com/nodejs/node)
+* Database - [PostgreSQL](https://github.com/postgres/postgres)
+* Ethereum JavaScript API - [Web3.Js](https://github.com/ChainSafe/web3.js/)
+* Smart Contract - [Solidity](https://github.com/ethereum/solidity)
+
+
+## Team Members
+
+* Gökhan Özeloğlu - [GitHub](https://github.com/gozeloglu)
+* Burak Yılmaz - [GitHub](https://github.com/SBurakYlmaz)
+* Dilara İşeri - [GitHub](https://github.com/iseridilara)
