@@ -3,6 +3,7 @@ function routes(app, candidates, contract, listOfCandidates, client){
        try {
            let candidate = req.body.candidate;
            let from = req.body.from;
+           candidate = parseInt(candidate);
            contract.methods.vote(candidate).send({from: from, gas: 120000}).then((result) => {
                // TODO res.json() can be used instead of res.send()
                return res.status(200).send({status: "OK", msg: "Voted successfully."})

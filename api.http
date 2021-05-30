@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
   "candidate": 1,
-  "from": "0x76936384eabE3d811dEFf2af5f63c0A5F116ceDC"
+  "from": "0x46ce4D9bE171264665E36eEF6BE829F2412869ec"
 }
 
 ###
@@ -11,7 +11,7 @@ POST http://localhost:8082/get/election-results
 Content-Type: application/json
 
 {
-  "from": "0x9957A6e804720E9cE985629090E2D3A203664Fd9"
+  "from": "0x46ce4D9bE171264665E36eEF6BE829F2412869ec"
 }
 
 ###
@@ -19,7 +19,7 @@ POST http://localhost:8082/get/check-my-vote
 Content-Type: application/json
 
 {
-  "from": "0x76936384eabE3d811dEFf2af5f63c0A5F116ceDC"
+  "from": "0x91f5305A8E89fe77738450De4FeD33207a28F46C"
 }
 
 ###

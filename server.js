@@ -19,6 +19,7 @@ app.use(bodyParser.json());
 
 client.connect()
 client.query('SELECT NOW()')
+let accountValues = []
 
 let web3;
 if (typeof web3 !== 'undefined') {
@@ -29,18 +30,20 @@ if (typeof web3 !== 'undefined') {
 
 var bytecode = fs.readFileSync('./Voting_sol_Ballot.bin').toString()
 var abi = JSON.parse(fs.readFileSync('./Voting_sol_Ballot.abi').toString())
-const listOfCandidates = ['Ahmet', 'Mehmet', 'Ramazan']
+const listOfCandidates = ['George W. Bush', 'Barack Obama', 'Joe Biden']
 const votingContract = new web3.eth.Contract(abi);
 
 function readAndSaveJson(voterHexValues) {
-
-    for (let i = 0; i < votersJson.length; i++) {
-        let insertQuery = "INSERT INTO voters (name, surname, id_number, password, hexvalue) VALUES(" + "'" + votersJson[i].name + "'" + "," + "'" +  votersJson[i].surname + "'" + "," + "'" + votersJson[i].id_number + "'" + "," + "'" + votersJson[i].password +"'" + "," + "'" + voterHexValues[i+1] + "'" + ")"
-        client
-            .query(insertQuery)
-            .then(() => console.log("Voter saved"))
-            .catch(e => console.log(e.toString().substr(0, 100)))
-    }
+    client
+        .query("TRUNCATE TABLE voters", (err, res) => {
+            for (let i = 0; i < votersJson.length; i++) {
+                let insertQuery = "INSERT INTO voters (name, surname, id_number, password, hexvalue) VALUES(" + "'" + votersJson[i].name + "'" + "," + "'" +  votersJson[i].surname + "'" + "," + "'" + votersJson[i].id_number + "'" + "," + "'" + votersJson[i].password +"'" + "," + "'" + voterHexValues[i+1] + "'" + ")"
+                client
+                    .query(insertQuery)
+                    .then(() => console.log("Voter saved"))
+                    .catch(e => console.log(e.toString().substr(0, 100)))
+            }
+    })
 }
 
 (async function () {
@@ -54,7 +57,7 @@ function readAndSaveJson(voterHexValues) {
         data: bytecode,
         arguments: [listOfCandidates.map(name => web3.utils.asciiToHex(name)),
             [accounts[1], accounts[2], accounts[3], accounts[4], accounts[5], accounts[6], accounts[7]],
-            "1622312756", "1622312756"]
+            "1622371495", "1622371495"]
     }).send({
         from: accounts[0],
         gas: 5500000,
