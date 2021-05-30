@@ -33,6 +33,22 @@ $ npm run start
 
 You need to see contract address. If you see address, server is running successfully. 
 
+### Updating and Re-compiling Smart Contract
+
+If you change the implementation of the smart contract, you need to compile the `Voting.sol` file.
+To compile the smart contract, you need to install [`solc`](https://www.npmjs.com/package/solc) package. 
+
+```shell
+$ npm install solc
+```
+
+After you installed the package, you can compile the Solidity file with the following command.
+
+```shell
+$ solcjs --bin --abi Voting.sol
+```
+
+
 ## Endpoints
 
 ### Vote
